@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+   <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+      <title>
+         Google Visualization API
+      </title>
+      <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAo1OdefyLPb4cT-qHsdBzlBRjrOvQi19W-S76Udh0jEBoMPuX1BRn4gs9tnlRD57_ZzJL2X3zTTO1Yg"></script>
+      <script type="text/javascript">
+         google.load('visualization', '1', {packages: ['motionchart','columnchart', 'linechart']});
+      </script>
+      <script type="text/javascript">
+
+         var query1, visualization1;
+        
+
+         function initialize() {
+         	var xmlhttp;
+			if (window.XMLHttpRequest)
+  			{// code for IE7+, Firefox, Chrome, Opera, Safari
+  				xmlhttp=new XMLHttpRequest();
+  			}
+			else
+  			{// code for IE6, IE5
+ 				 xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+ 			}
+ 			xmlhttp.open("GET","/clickintest",true);
+			xmlhttp.send();
+            visualization1 = new google.visualization.MotionChart(document.getElementById('visualization1'));
+            query1 = new google.visualization.Query('/json');
+            query1.setRefreshInterval(5);
+            query1.send(drawVisualization1);
+            
+
+         }
+
+         function drawVisualization1(response) {
+            if (response.isError()) {
+               alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+               return;
+            }
+            var options = {};
+            options['state'] = '{"yZoomedDataMax":10,"iconType":"LINE","iconKeySettings":[{"key":{"dim0":"Commonwealth"}},{"key":{"dim0":"ANZ"}},{"key":{"dim0":"Bank SA"}}],"dimensions":{"iconDimensions":["dim0"]},"orderedByY":false,"yZoomedDataMin":0,"showTrails":false,"playDuration":15000,"xAxisOption":"_TIME","sizeOption":"_UNISIZE","nonSelectedAlpha":0.4,"duration":{"multiplier":1,"timeUnit":"D"},"yAxisOption":"2","yLambda":1,"yZoomedIn":false,"uniColorForNonSelected":false,"xZoomedIn":false,"xZoomedDataMin":1309564800000,"time":"2011-10-02","orderedByX":false,"xZoomedDataMax":1317513600000,"xLambda":1,"colorOption":"_UNIQUE_COLOR"};';
+            options['width'] = 800;
+            options['height'] = 400;
+            visualization1.draw(response.getDataTable(), options);
+         }
+
+         function drawVisualization2(response) {
+            if (response.isError()) {
+               alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+               return;
+            }
+
+         }
+
+         google.setOnLoadCallback(initialize);
+      </script>
+
+   </head>
+   <body style="text-align: center;">
+   	  <div>
+   	  <h1>Application Test</h1>
+   	  <h3>Click in Technology Services</h3>
+   	  <h3>Position: Developer</h3>
+   	  <p>This Chart was developed using the following Technologies: Java, JDO, Servlets, JSON, HTML and JavaScript. </p>
+
+   	  </div>
+      <br/>
+      <center>
+	      <div>
+	         <div id="visualization1"  />
+	      </div>
+      </center>
+   </body>
+</html>
