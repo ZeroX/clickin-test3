@@ -46,13 +46,7 @@
             visualization1.draw(response.getDataTable(), options);
          }
 
-         function drawVisualization2(response) {
-            if (response.isError()) {
-               alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-               return;
-            }
-
-         }
+  
 
          google.setOnLoadCallback(initialize);
       </script>
